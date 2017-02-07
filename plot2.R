@@ -10,13 +10,14 @@ plot2 <- function(){
         
         colnames(power_df) <- colnames(headers)
         power_df$Date <- as.Date(dmy(power_df$Date))
-
+        plot_datetime <- as.POSIXct(paste(power_df$Date, power_df$Time))
+       
         png("plot2.png",
             width = 480,
             height = 480,
             units = "px")
         
-        plot(as.POSIXct(paste(power_df$Date, power_df$Time)), power_df$Global_active_power,
+        plot(plot_datetime, power_df$Global_active_power,
              xlab = "",
              ylab = "Global Active Power (kilowatts)",
              ylim = c(min(power_df$Global_active_power),max(power_df$Global_active_power)),

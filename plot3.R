@@ -10,19 +10,17 @@ plot3 <- function(){
         
         colnames(power_df) <- colnames(headers)
         power_df$Date <- as.Date(dmy(power_df$Date))
-
+        plot_datetime <- as.POSIXct(paste(power_df$Date, power_df$Time))
+        
         png("plot3.png",
             width = 480,
             height = 480,
             units = "px")
 
-        plot_datetime <- as.POSIXct(paste(power_df$Date, power_df$Time))
-        
         plot(plot_datetime, power_df$Sub_metering_1, col = "black", type = "l",
              ylab = "Energy sub metering", xlab = "")
         lines(plot_datetime, power_df$Sub_metering_2, col = "red", type = "l")
         lines(plot_datetime, power_df$Sub_metering_3, col = "blue", type = "l")
-
         legend("topright", legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
                col = c("black", "red", "blue"), lty = c(1,1))
         
