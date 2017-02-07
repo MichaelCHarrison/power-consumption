@@ -23,8 +23,4 @@ plot2 <- function(){
              type = "l")
         
         dev.off()
-        
-        power_df
-        
-        
 }

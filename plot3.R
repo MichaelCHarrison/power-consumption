@@ -9,21 +9,22 @@ plot3 <- function(){
                           data.table = TRUE)
         
         colnames(power_df) <- colnames(headers)
-        power_df[['Date']] <- as.Date(dmy(power_df[['Date']]))
-        power_df[['Time']] <- as.POSIXct(strptime(power_df[['Time']], format = "%H:%M:%S"))
-        
+        power_df$Date <- as.Date(dmy(power_df$Date))
+
         png("plot3.png",
             width = 480,
             height = 480,
             units = "px")
 
-        plot(power_df$Time, power_df$Sub_metering_1, col = "black", type = "l")
-        plot(power_df$Time, power_df$Sub_metering_2, col = "red", type = "l")
-        plot(power_df$Time, power_df$Sub_metering_3, col = "blue", type = "l",
-             ylab = "Energy sub metering")
+        plot_datetime <- as.POSIXct(paste(power_df$Date, power_df$Time))
         
-        legend("topright", legend = "Sub_metering_1", col = "black")
-        legend("topright", legend = "Sub_metering_2", col = "red")
-        legend("topright", legend = "Sub_metering_3", col = "blue")
+        plot(plot_datetime, power_df$Sub_metering_1, col = "black", type = "l",
+             ylab = "Energy sub metering", xlab = "")
+        lines(plot_datetime, power_df$Sub_metering_2, col = "red", type = "l")
+        lines(plot_datetime, power_df$Sub_metering_3, col = "blue", type = "l")
+
+        legend("topright", legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
+               col = c("black", "red", "blue"), lty = c(1,1))
         
+        dev.off()
 }
