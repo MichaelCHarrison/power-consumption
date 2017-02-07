@@ -1,4 +1,4 @@
-plot1 <- function(){
+plot2 <- function(){
         library(data.table, lubridate)
         setwd("~/Desktop/Coursera/Exploratory Analysis/power-consumption")
         df <- fread("household_power_consumption.txt",
@@ -8,11 +8,11 @@ plot1 <- function(){
                     data.table = TRUE)
         
         df$Date <- dmy(df$Date)
+        df$Time <- strptime(df$Time, format = "%H:%M:%S")
         power_df <- df[Date %between% c("2007-02-01","2007-02-02")]
         
-        hist <- hist(power_df$Global_active_power,
-                     main = "Global Active Power",
-                     xlab = "Global Active Power (kilowatts)",
-                     col = "red",
-                     ylim = c(0,1200))
+        plot <- plot(power_df$Time, power_df$Global_active_power)
+                     # xlab = "",
+                     # ylab = "Global Active Power (kilowatts)")
+        
 }
