@@ -1,15 +1,28 @@
 plot4 <- function(){
         library(data.table, lubridate)
         setwd("~/Desktop/Coursera/Exploratory Analysis/power-consumption")
-        df <- fread("household_power_consumption.txt",
-                    header = TRUE,
-                    na.strings = "?",
-                    colClasses = c("Date" = "Date"),
-                    data.table = TRUE)
+        headers <- fread("household_power_consumption.txt", nrow = 1)
+        power_df <- fread("household_power_consumption.txt",
+                          na.strings = "?",
+                          skip = 66637,
+                          nrow = 2880,
+                          data.table = TRUE)
         
-        df$Date <- dmy(df$Date)
-        df$Time <- strptime(df$Time, format = "%H:%M:%S")
-        power_df <- df[Date %between% c("2007-02-01","2007-02-02")]
+        colnames(power_df) <- colnames(headers)
+        power_df$Date <- dmy(power_df$Date)
+        
+        # png("plot2.png",
+        #     width = 480,
+        #     height = 480,
+        #     units = "px")
         
         par(mfrow = c(2,2))
+        plots <- with(power_df,{
+                plot()
+                #plot()
+                #plot()
+                #plot()
+        })
+        
+        
 }
