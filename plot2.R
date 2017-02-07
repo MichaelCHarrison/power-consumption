@@ -9,21 +9,22 @@ plot2 <- function(){
                           data.table = TRUE)
         
         colnames(power_df) <- colnames(headers)
-        power_df[['Date']] <- as.Date(dmy(power_df[['Date']]))
-        power_df[['Time']] <- as.POSIXct(strptime(power_df[['Time']], format = "%H:%M:%S"))
-        
+        power_df$Date <- as.Date(dmy(power_df$Date))
+
         png("plot2.png",
             width = 480,
             height = 480,
             units = "px")
         
-        plot(power_df$Time, power_df$Global_active_power,
+        plot(as.POSIXct(paste(power_df$Date, power_df$Time)), power_df$Global_active_power,
              xlab = "",
              ylab = "Global Active Power (kilowatts)",
+             ylim = c(min(power_df$Global_active_power),max(power_df$Global_active_power)),
              type = "l")
         
-        #dev.off()
+        dev.off()
         
+        power_df
         
         
 }
