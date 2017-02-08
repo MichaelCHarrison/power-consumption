@@ -1,5 +1,6 @@
 plot1 <- function(){
-        library(data.table, lubridate)
+        library(data.table);library(lubridate)
+        
         setwd("~/Desktop/Coursera/Exploratory Analysis/power-consumption")
         headers <- fread("household_power_consumption.txt", nrow = 1)
         power_df <- fread("household_power_consumption.txt",
@@ -23,6 +24,4 @@ plot1 <- function(){
                      ylim = c(0,1200))
         
         dev.off()
-        hist
-
 }
